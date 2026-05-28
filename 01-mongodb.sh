@@ -1,10 +1,10 @@
 #!/bin/bash
 
-LOGS_FOLDER="/Var/log/roboshop"
+LOGS_FOLDER="/var/log/roboshop"
 sudo mkdir -p $LOGS_FOLDER
-sudo chown  -R ec2-user:ec2-user |$LOGs-FOLDER
+sudo chown -R ec2-user:ec2-user $LOGS_FOLDER
 sudo chmod -R 755 $LOGS_FOLDER
-LOGS_FILES="LOGS_FOLDER/$|0.logs"
+LOGS_FILES="LOGS_FOLDER/$0.logs"
 
 USERID=(id -u)
 R="\e[31m"
