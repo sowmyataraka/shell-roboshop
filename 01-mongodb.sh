@@ -18,17 +18,16 @@ if [ $USERID -ne 0 ]; then
    exit 1
 fi
       
-      
 VALIDATE(){
     if [ $1 -ne 0 ]; then
-        echo -e $TIMESTAMP [ERROR] $2  ...$R FAILED $N" | tee -a $LOGS_FILE
+        echo -e $TIMESTAMP [ERROR] $2 ...$R FAILURE $N" | tee -a $LOGS_FILE
         exit 1
     else
-        echo -e $TIMESTAMP [INFO] $2  ...$G SUCCESS $N" | tee -a $LOGS_FILE
+        echo -e $TIMESTAMP [INFO] $2 ...$G SUCCESS $N" | tee -a $LOGS_FILE
     fi
 }
 
-cp mongo.repo /etc/yum.repo.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Adding Mongo repo"
 
 dnf install mongodb-org -y &>> $LOGS_FILE
