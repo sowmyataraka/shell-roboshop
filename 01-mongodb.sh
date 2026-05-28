@@ -11,9 +11,10 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
 if [ $USERID -ne 0 ]; then
-   echo "Please run this script with root access"
+   echo -e $TIMESTAMP [ERROR]  $R "Please run this script with root access $N" | tee -a $LOGS_FILE
    exit 1
 fi
       
@@ -29,4 +30,7 @@ VALIDATE(){
 
 cp mongo.repo /etc/yum.repo.d/mongo.repo
 VALIDATE $? "Adding Mongo repo"
+
+dnf install mongodb-org -y &>> $LOGS_FILE
+VALIDATE $? "Installing MongoDB" 
 
