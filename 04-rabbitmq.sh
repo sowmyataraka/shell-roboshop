@@ -39,6 +39,4 @@ VALIDATE $? "Enabling and starting rabbitmq server"
 
 rabbitmqctl add_user roboshop roboshop123 &>> $LOGS_FILE
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOGS_FILE
-VALIDATE $? "setting up username and password"   
-
-  
+VALIDATE $? "setting up username and password"
