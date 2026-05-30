@@ -3,7 +3,7 @@
 #export PATH=$PATH:/usr/local/bin
 
 AMI_ID="ami-0220d79f3f480ecf5"
-ZONE_ID="Z0184746WRRFG0I0XJTP"" # replace with your zone ID
+ZONE_ID="Z0184746WRRFG0I0XJTP"# replace with your zone ID
 DOMAIN_NAME="daws90s.uk" # replace with your domain name
 R="\e[31m"
 G="\e[32m"
