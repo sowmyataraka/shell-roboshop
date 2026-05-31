@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#export PATH=$PATH:/usr/local/bin
+
 AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z0184746WRRFG0I0XJTP" # replace with your zone ID
 DOMAIN_NAME="daws90s.uk" # replace with your domain name
@@ -24,7 +26,6 @@ if [ "$ACTION" != "create" ] && [ "$ACTION" != "delete" ]; then
     exit 1
 fi
 
-
 get_instance_id(){
     name=$1
     aws ec2 describe-instances --filters "Name=tag:Name,Values=roboshop-$name" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text
@@ -37,7 +38,7 @@ do
         if [ $INSTANCE_ID == "None" ]; then
             echo "Launching Instance: roboshop-$instance"
             INSTANCE_ID=$( aws ec2 run-instances \
-            --image-id $ami-0220d79f3f480ecf5\
+            --image-id $AMI_ID \
             --instance-type t3.micro \
             --security-groups "roboshop-common" "roboshop-$instance" \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
@@ -99,3 +100,17 @@ do
         fi
     fi
 done
+
+# ================================================================
+# ASSIGNMENT 2 — roboshop-v3.sh (Handle stopped instances)
+# ================================================================
+
+# roboshop-v2.sh only checks for "running" instances.
+# A stopped instance is treated as non-existent — it gets re-created
+# instead of re-started, and on delete it is silently skipped.
+
+# Improve it so that:
+
+#   - If create and instance is stopped, start it instead of launching new
+#   - If delete and instance is stopped, terminate it and delete R53 record
+#   - If delete and instance is running, terminate it and delete R53 record
