@@ -27,18 +27,17 @@ VALIDATE(){
     fi
 }
 
-cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
-VALIDATE $? "Adding rabbitmq repo"
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+VALIDATE $? "Adding Mongo repo"
 
-dnf install rabbitmq-server -y &>> $LOGS_FILE
-VALIDATE $? "Installing rabbitmq server"
+dnf install mongodb-org -y &>> $LOGS_FILE
+VALIDATE $? "Installing MongoDB"
 
-systemctl enable rabbitmq-server &>> $LOGS_FILE
-systemctl start rabbitmq-server &>> $LOGS_FILE
-VALIDATE $? "Enabling and starting rabbitmq server"
+systemctl enable --now mongod
+VALIDATE $? "Starting and enabling MongoDB"
 
-rabbitmqctl add_user roboshop roboshop123 &>> $LOGS_FILE
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOGS_FILE
-VALIDATE $? "setting up username and password"   
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf
+VALIDATE $? "Allowing remote connections to MongoDB"
 
-  
+systemctl restart mongod
+VALIDATE $? "Restarting MongoDB"
