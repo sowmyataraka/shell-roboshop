@@ -1,4 +1,4 @@
-##!/bin/bash
+!/bin/bash
 
 LOGS_FOLDER="/var/log/roboshop"
 sudo mkdir -p $LOGS_FOLDER
@@ -35,10 +35,10 @@ VALIDATE $? "Installing NodeJS:20"
 
 id roboshop &>>$LOGS_FILE
 if [ $? -ne 0 ]; then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
-    VALIDATE $? "Creating roboshop system user"
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system cart" roboshop &>>$LOGS_FILE
+    VALIDATE $? "Creating roboshop system cart
 else
-    echo -e "System user roboshop already created ... $Y SKIPPING $N"
+    echo -e "System cart roboshop eated ... $Y SKIPPING $N"
 fi
 
 rm -rf /app
