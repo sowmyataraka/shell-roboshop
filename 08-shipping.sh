@@ -61,3 +61,5 @@ VALIDATE $? "Created systemctl service"
 
 dnf install mysql -y &>>$LOGS_FILE
 VALIDATE $? "Installed MySQL client"
+
+
