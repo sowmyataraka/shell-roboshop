@@ -67,10 +67,10 @@ VALIDATE $? "Added Mongo repo"
 dnf install mongodb-mongosh -y &>>$LOGS_FILE
 VALIDATE $? "Installed MongoDB client"
 
-INDEX=$(mongosh --host mongodb.daws90s.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+INDEX=$(mongosh --host mongodb.daws90s.uk-eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 
 if [ $INDEX -lt 0 ]; then
-    mongosh --host mongodb.daws90s.shop </app/db/master-data.js &>>$LOGS_FILE
+    mongosh --host mongodb.daws90s.uk app/db/master-data.js &>>$LOGS_FILE
     VALIDATE $? "Load Products"
 else
     echo -e "Products already loaded ... $Y SKIPPING $N"
@@ -78,4 +78,4 @@ fi
 
 systemctl enable catalogue &>>$LOGS_FILE
 systemctl restart catalogue &>>$LOGS_FILE
-VALIDATE $? "Restarting catalogue"
+VALIDATE $? "Restarting catalogue" 
